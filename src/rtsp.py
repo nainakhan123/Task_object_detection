@@ -15,12 +15,10 @@ if not cap.isOpened():
 model = YOLO('yolov8n.pt')
 
 def detect_objects(frame):
-    """Perform object detection on the frame using YOLOv8."""
     results = model(frame)
     return results
 
 def get_random_color():
-    """Generate a random color, avoiding red."""
     while True:
         color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
         if color != (0, 0, 255):
@@ -31,7 +29,6 @@ selected_box = None
 timer_start = None
 
 def on_mouse(event, x, y, flags, param):
-    """Handle mouse click events to select a bounding box."""
     global selected_box, timer_start
     if event == cv2.EVENT_LBUTTONDOWN:
         for bbox in param:
