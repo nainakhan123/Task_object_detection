@@ -34,7 +34,6 @@ def on_mouse(event, x, y, flags, param):
             x1, y1, x2, y2, obj_id = bbox
             if x1 <= x <= x2 and y1 <= y <= y2:
                 if obj_id in selected_boxes:
-                    # Revert previous selection to random color
                     colors[obj_id] = get_random_color()
                     timer_starts.pop(obj_id, None)
                 selected_boxes[obj_id] = True
@@ -44,7 +43,6 @@ def on_mouse(event, x, y, flags, param):
 cv2.namedWindow('Video Stream')
 cv2.setMouseCallback('Video Stream', on_mouse, param=[])
 
-# Use MIL tracker instead of CSRT tracker
 tracker = cv2.TrackerMIL_create()
 
 while True:
@@ -63,7 +61,7 @@ while True:
                 bboxes.append((x1, y1, x2, y2, obj_id))
                 color = colors.get(obj_id, get_random_color())
                 if obj_id in selected_boxes:
-                    color = (0, 0, 255)  # Red color for selected box
+                    color = (0, 0, 255) 
                     if obj_id in timer_starts:
                         elapsed_time = int(time.time() - timer_starts[obj_id])
                         cv2.putText(frame, f'Timer: {elapsed_time}s', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
